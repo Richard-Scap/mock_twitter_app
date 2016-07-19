@@ -1,1 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+Richard:
+name: Richard Scappaticci
+email: scap222@gmail.com
+password: <%= User.digest('password') %>
