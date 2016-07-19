@@ -12,7 +12,8 @@ class UsersController < ApplicationController
   	@user = User.new(user_params)
 
   	if @user.save
-  		flash[:success] = "Welcome to the Sample App!"
+      log_in(@user) #log_in method from sessions helper
+  		flash[:success] = "Welcome to the Mock Twitter App!"
   		redirect_to user_url(@user)
   	else
   		render 'new'  		
