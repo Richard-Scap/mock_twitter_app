@@ -5,13 +5,13 @@ class SessionsController < ApplicationController
   def create
   	user = User.find_by(email: params[:session][:email].downcase)
   	if user && user.authenticate(params[:session][:password])
-  		log_in(user)
+  		log_in(user) #method in sessions_helper
   	  if params[:session][:remember_me] == '1'
-        remember(user)
+        remember(user) #method in sessions_helper
       else
         forget(user)
       end
-  		redirect_to user_url(user.id)  #can also be 'redirect_to user_url(user)' OR 'redirect_to user'
+      redirect_back_or(user_url(user))
   		flash[:success] = "Login successful!"
   	else
   		flash.now[:danger] = 'User email or password is incorrect.'
