@@ -1,0 +1,12 @@
+	<% @users.each do |u| %>
+		<li>
+			<a href=<%=user_path(u)%>>
+				<%= gravatar_for(u, size: 50) %>
+			</a>
+			<%= link_to "#{u.name}", user_path(u) %>
+			<% if current_user.admin? && !current_user?(u) %>
+				|	<%= link_to "Delete", user_path(u), method: 'delete', data: {confirm: "Delete #{u.name}?"} %>
+
+			<% end %>
+		</li>
+	<% end %>
