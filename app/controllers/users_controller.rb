@@ -31,15 +31,16 @@ class UsersController < ApplicationController
   	@user = User.new
   end
 
+  # if user is created send activation email and redirect to root.
   def create
-  	@user = User.new(user_params)
-  	if @user.save
-      log_in(@user) #log_in method from sessions helper
-  		flash[:success] = "Welcome to the Mock Twitter App!"
-  		redirect_to(user_url(@user))
-  	else
-  		render 'new'  		
-  	end
+    @user = User.new(user_params)
+    if @user.save
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
+    else
+      render 'new'
+    end
   end
 
   def destroy
